@@ -1,0 +1,42 @@
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @garden.banner_url %>);">
+  <div class="container text-center">
+    <h1><%= @garden.name %></h1>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col">
+      <div class="cards">
+        <% @garden.plants.each do |plant| %>
+          <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= plant.image_url %>)">
+            <%= plant.name %>
+            <a href="<%= plant_path(plant) %>" data-method="DELETE" class="card-remove-link" id="destroy-plant-<%= plant.id %>">
+              <i class="fas fa-trash"></i>
+            </a>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- form -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <h4>Add a new plant</h4>
+      <%= simple_form_for([@garden, @plant]) do |f| %>
+        <%= f.input :name %>
+        <%= f.input :image_url %>
+        <%= f.submit 'Save your plant', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<%= link_to 'Edit', edit_garden_path(@garden) %> |
+<%= link_to 'Back', gardens_path %>
